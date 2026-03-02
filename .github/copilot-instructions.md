@@ -1,0 +1,1 @@
+This workspace contains the QA Commerce automated test framework using Cypress and Cucumber. Follow the project-specific guidelines in the README and the user instructions to implement tests with layered architecture, Portuguese feature files, page objects, step definitions, and custom commands.
