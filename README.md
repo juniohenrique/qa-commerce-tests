@@ -33,7 +33,7 @@ Este repositório contém o conjunto de testes automatizados para a aplicação 
 1. **Feature files** (Gherkin em português) descrevem cenários de alto nível e regras de negócio.
 2. **Step definitions** mapeiam cada frase Gherkin para chamadas do Cypress.
 3. **Page objects** (quando utilizados) encapsulam seletores e ações comuns.
-4. **Custom commands** implementam ações reaproveitáveis, como `cy.login()` e `cy.postApi()`.
+4. **Custom commands** implementam ações reaproveitáveis, como `cy.postApi()`.
 5. **Dados dinâmicos** são gerados com [`@faker-js/faker`](https://fakerjs.dev/).
 
 O objetivo é manter uma camada legível (Gherkin), outra de implementação reutilizável e evitar duplicação.
