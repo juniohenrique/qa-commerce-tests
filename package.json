@@ -6,6 +6,8 @@
   "scripts": {
     "cy:open": "npx cypress open",
     "cy:run": "npx cypress run",
+    "test:api": "npx cypress run --spec 'cypress/e2e/api.feature'",
+    "test:produto": "npx cypress run --spec 'cypress/e2e/produto.feature'",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
