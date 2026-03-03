@@ -1,0 +1,100 @@
+name: QA Commerce Tests - API
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches:
+      - main
+      - develop
+
+jobs:
+  test-api:
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        node-version: [20.x]
+
+    steps:
+      # 1. Checkout do repositório de testes
+      - name: Checkout QA Commerce Tests
+        uses: actions/checkout@v4
+        with:
+          path: qa-tests
+
+      # 2. Checkout do projeto qa-commerce
+      - name: Checkout QA Commerce App
+        uses: actions/checkout@v4
+        with:
+          repository: juniohenrique/qa-commerce
+          path: qa-app
+
+      # 3. Setup Node.js
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      # 4. Instalar dependências dos testes
+      - name: Install dependencies (QA Tests)
+        working-directory: ./qa-tests
+        run: npm ci
+
+      # 5. Instalar dependências da aplicação
+      - name: Install dependencies (QA App)
+        working-directory: ./qa-app
+        run: npm ci
+
+      # 6. Iniciar a aplicação em background
+      - name: Start QA Commerce App
+        working-directory: ./qa-app
+        run: |
+          npm start > app.log 2>&1 &
+          echo $! > app.pid
+          sleep 10
+
+      # 7. Verificar se a aplicação está rodando
+      - name: Wait for app to be ready
+        run: |
+          for i in {1..30}; do
+            if curl -s http://localhost:3000 > /dev/null; then
+              echo "✅ App is running!"
+              exit 0
+            fi
+            echo "⏳ Waiting for app... (attempt $i/30)"
+            sleep 2
+          done
+          echo "❌ App failed to start"
+          exit 1
+
+      # 8. Rodar apenas testes de API
+      - name: Run API Tests
+        working-directory: ./qa-tests
+        run: npm run test:api
+
+      # 9. Parar a aplicação
+      - name: Stop QA Commerce App
+        if: always()
+        run: |
+          if [ -f qa-app/app.pid ]; then
+            kill $(cat qa-app/app.pid) || true
+          fi
+
+      # 10. Upload de screenshots em caso de falha
+      - name: Upload Cypress Screenshots
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-screenshots-api-node-${{ matrix.node-version }}
+          path: qa-tests/cypress/screenshots
+
+      # 11. Upload de vídeos dos testes
+      - name: Upload Cypress Videos
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-videos-api-node-${{ matrix.node-version }}
+          path: qa-tests/cypress/videos

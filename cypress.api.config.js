@@ -7,8 +7,7 @@ module.exports = defineConfig({
   e2e: {
     specPattern: 'cypress/e2e/**/*.feature',
     supportFile: 'cypress/support/index.js',
-    video: true,
-    videoCompression: 32,
+    video: false,
     setupNodeEvents(on, config) {
       const bundler = createBundler({
         plugins: [createEsbuildPlugin(config)],
