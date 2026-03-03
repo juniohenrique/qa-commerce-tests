@@ -84,11 +84,8 @@ Adicione novos arquivos com as suas ideias e/ou abra pull requests com as implem
 
 ## 🛠 Boas práticas
 
-- Utilize atributos `data-testid` ou similares para tornar seletores mais resilientes.
 - Evite lógicas complexas nos próprios passos; prefira page objects e comandos.
 - Mantenha os testes determinísticos e independentes uns dos outros.
 - Documente novas funcionalidades no README e registre sugestões em `improvements/`.
 
 ---
-
-Este README serve como guia para entender, executar e evoluir os testes do QA Commerce. Bons testes!  
