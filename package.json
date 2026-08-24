@@ -1,19 +1,15 @@
 {
   "name": "qa-commerce-tests",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "cy:open": "npx cypress open",
-    "cy:run": "npx cypress run",
-    "test:api": "npx cypress run --config-file cypress.api.config.js --spec 'cypress/e2e/api.feature'",
-    "test:produto": "npx cypress run --spec 'cypress/e2e/produto.feature'",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "description": "Testes automatizados para a aplicação QA Commerce utilizando Cypress + Cucumber",
   "type": "commonjs",
+  "scripts": {
+    "cy:open": "cypress open",
+    "cy:run": "cypress run",
+    "test:web": "cypress run --spec 'cypress/e2e/features/web/**/*.feature'",
+    "test:api": "cypress run --spec 'cypress/e2e/features/api/**/*.feature'",
+    "test": "cypress run"
+  },
   "devDependencies": {
     "@badeball/cypress-cucumber-preprocessor": "^24.0.1",
     "@bahmutov/cypress-esbuild-preprocessor": "^2.2.8",

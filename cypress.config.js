@@ -5,10 +5,10 @@ const createEsbuildPlugin = require('@badeball/cypress-cucumber-preprocessor/esb
 
 module.exports = defineConfig({
   e2e: {
-    specPattern: 'cypress/e2e/**/*.feature',
+    specPattern: 'cypress/e2e/features/**/*.feature',
     supportFile: 'cypress/support/index.js',
-    video: true,
-    videoCompression: 32,
+    video: false,
+    screenshotOnRunFailure: true,
     setupNodeEvents(on, config) {
       const bundler = createBundler({
         plugins: [createEsbuildPlugin(config)],
@@ -19,5 +19,8 @@ module.exports = defineConfig({
       return config;
     },
     baseUrl: 'http://localhost:3000',
+    env: {
+      DEFAULT_USER_ID: 1,
+    },
   },
 });
