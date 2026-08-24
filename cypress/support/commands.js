@@ -1,8 +1,11 @@
-// Custom Cypress commands
-// Place reusable cross-page actions here. Example:
+const CartService = require('../services/CartService');
 
-// comando genérico para fazer requisição POST à API usando baseUrl
-Cypress.Commands.add('postApi', (endpoint, body) => {
-  // endpoint pode ser caminho relativo ou URL completa
-  return cy.request('POST', endpoint, body);
+const DEFAULT_USER_ID = Cypress.env('DEFAULT_USER_ID') || 1;
+
+Cypress.Commands.add('clearCart', (userId = DEFAULT_USER_ID) => {
+  return CartService.clearCart(userId);
+});
+
+Cypress.Commands.add('addProductToCartViaApi', (productId, quantity = 1, userId = DEFAULT_USER_ID) => {
+  return CartService.addItem({ userId, productId, quantity });
 });

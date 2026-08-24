@@ -1,9 +1,9 @@
-// Import commands.js using ES2015 syntax:
 import './commands';
 
-// Alternatively you can use CommonJS syntax:
-// require('./commands')
+const DEFAULT_USER_ID = Cypress.env('DEFAULT_USER_ID') || 1;
 
-// You can add global configuration and behavior that modifies Cypress here.
-// For example, to preserve cookies between tests:
-// Cypress.Cookies.defaults({ preserve: ['session_id'] });
+beforeEach(() => {
+  cy.clearCart(DEFAULT_USER_ID);
+  cy.clearCookies();
+  cy.clearLocalStorage();
+});
