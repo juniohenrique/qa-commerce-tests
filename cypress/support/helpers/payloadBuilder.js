@@ -17,13 +17,8 @@ function buildCheckoutPayload(overrides = {}) {
     phone: '11987654321',
     email: faker.internet.email(),
     paymentMethod: PAYMENT_METHODS.PIX,
-    boletoCode: null,
     pixKey: PIX_KEY_DEFAULT,
-    cardNumber: null,
-    cardExpiry: null,
-    cardCvc: null,
     createAccount: false,
-    password: null,
   };
 
   if (base.paymentMethod === PAYMENT_METHODS.BOLETO) {

@@ -18,11 +18,11 @@ class HomePage {
 
   getFirstProductDetails() {
     return this.elements.firstProductCard().within(() => {
-      cy.get('legend a').invoke('text').as('productName');
-      cy.get('.card-text').invoke('text').as('productDescription');
+      cy.get('legend a').invoke('text').as('productName', { type: 'static' });
+      cy.get('.card-text').invoke('text').as('productDescription', { type: 'static' });
       cy.get('p').contains('Preço:').invoke('text').then((text) => {
         const price = parseFloat(text.replace('Preço: R$', ''));
-        cy.wrap(price).as('productPrice');
+        cy.wrap(price).as('productPrice', { type: 'static' });
       });
     });
   }
