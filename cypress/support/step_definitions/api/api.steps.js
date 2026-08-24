@@ -131,6 +131,12 @@ Then('o preço do produto deve ser maior que zero', function () {
   });
 });
 
+Then('o preço do item deve ser maior que zero', function () {
+  cy.get('@apiResponse').its('body').each((item) => {
+    expect(item.price).to.be.greaterThan(0);
+  });
+});
+
 Then(
   'a resposta deve conter as propriedades id, name, description, price e image',
   function () {
@@ -190,7 +196,11 @@ Then('a quantidade do item deve ser {int}', function (expectedQuantity) {
 });
 
 Then('a resposta deve conter o {string} do pedido', function (field) {
-  cy.get('@apiResponse').its(`body.${field}`).should('exist').and('not.be.empty');
+  cy.get('@apiResponse')
+    .its(`body.${field}`)
+    .then((value) => {
+      expect(value).to.not.be.oneOf([null, undefined, '']);
+    });
 });
 
 Then('o status do pedido na resposta da API deve ser {string}', function (expectedStatus) {

@@ -25,6 +25,8 @@ When('adiciono o primeiro produto da lista ao carrinho', function () {
 });
 
 When('o primeiro produto da lista foi adicionado ao carrinho', function () {
+  HomePage.waitForProductsLoaded();
+  HomePage.getFirstProductDetails();
   HomePage.addFirstProductToCart(1);
 });
 
